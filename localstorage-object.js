@@ -130,7 +130,7 @@ document.getElementById('contact-button').addEventListener('click', function() {
     let message = document.getElementById("message").value.trim();
 
     // Regular expressions for validation
-    let nameRegex = /^[A-Za-z\s]+$/; // Allows only letters and spaces
+    let nameRegex = /^[A-Za-z\s]+$/; // Allows only letters and spaces  \s → Whitespace character
     let emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // Basic email validation
 
     // Validation functions
@@ -184,3 +184,9 @@ document.getElementById('contact-button').addEventListener('click', function() {
         localStorageData.appData.submitForm(firstName, lastName, email, message);
     }
 });
+
+
+
+
+
+     
