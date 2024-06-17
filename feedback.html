@@ -229,62 +229,63 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 
     <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            // Array of feedback objects
-            const feedbacks = [
-                { name: "Mike Johnson", email: "mikejohnson@example.com", feedback: "The team was very helpful and responsive." },
-                { name: "Sarah Smith", email: "sarahsmith@example.com", feedback: "Excellent service, highly recommended." },
-                { name: "John Doe", email: "johndoe@example.com", feedback: "Efficient and professional. Will use again." },
-                { name: "Jane Doe", email: "janedoe@example.com", feedback: "Very pleased with the outcome. Great job!" },
-                { name: "Chris Brown", email: "chrisbrown@example.com", feedback: "Outstanding support. Thank you!" },
-                { name: "Emily Davis", email: "emilydavis@example.com", feedback: "Prompt response and great assistance." },
-                { name: "David Lee", email: "davidlee@example.com", feedback: "Impressed with the service quality." },
-                { name: "Emma Wilson", email: "emmawilson@example.com", feedback: "Highly professional and efficient." },
-                { name: "Mike Johnson", email: "mikejohnson@example.com", feedback: "The team was very helpful and responsive." }, // Duplicate entry for testing
-            ];
+    // Retrieve feedback data from localStorage
+    document.addEventListener("DOMContentLoaded", function() {
+    // Retrieve feedback data from localStorage
+    let storedData = localStorage.getItem("formData");
+    let feedbacks = [];
 
-            // Function to create feedback cards dynamically
-            function createFeedbackCards(cardsContainerId, feedbackData) {
-                // Get the container where cards will be appended
-                const cardsContainer = document.getElementById(cardsContainerId);
-                cardsContainer.innerHTML = ""; // Clear existing content
+    // Check if there is stored data
+    if (storedData) {
+        // Parse stored JSON string to array تحليل ال Json ل Array
+        feedbacks = JSON.parse(storedData);
+    }
 
-                // Iterate over feedback data to create cards
-                feedbackData.forEach((feedback, index) => {
-                    if (index < 3) { // Display only top 3 in the first carousel item
-                        // Append card HTML for top carousel
-                        cardsContainer.innerHTML += `
-                            <div class="col-lg-4 col-md-6 mb-4">
-                                <div class="card h-100">
-                                    <div class="card-body">
-                                        <h4 class="card-title">${feedback.name}</h4>
-                                        <h5 class="card-title">${feedback.email}</h5>
-                                        <p class="card-text">${feedback.feedback}</p>
-                                    </div>
-                                </div>
-                            </div>
-                        `;
-                    } else if (index >= 3 && index < 6) { // Display next 3 in the second carousel item
-                        // Append card HTML for bottom carousel
-                        cardsContainer.innerHTML += `
-                            <div class="col-lg-4 col-md-6 mb-4">
-                                <div class="card h-100">
-                                    <div class="card-body">
-                                        <h4 class="card-title">${feedback.name}</h4>
-                                        <h5 class="card-title">${feedback.email}</h5>
-                                        <p class="card-text">${feedback.feedback}</p>
-                                    </div>
-                                </div>
-                            </div>
-                        `;
-                    }
-                });
+    // Function to create feedback cards dynamically
+    function createFeedbackCards(cardsContainerId, feedbackData) {
+        const cardsContainer = document.getElementById(cardsContainerId);
+        cardsContainer.innerHTML = ""; // Clear existing content
+
+        feedbackData.forEach((feedback, index) => {
+            // Display each feedback object
+            if (index < 3) {
+                cardsContainer.innerHTML += `
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <h4 class="card-title">${feedback.firstName}</h4>
+                            <h5 class="card-title">${feedback.lastName}</h5>
+                            <p class="card-text">${feedback.email}</p>
+                            <p class="card-text">${feedback.message}</p>
+                        </div>
+                    </div>
+                </div>
+            `;
+            } else if (index >= 3 && index < 6) {
+                cardsContainer.innerHTML += `
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <h4 class="card-title">${feedback.firstName}</h4>
+                            <h5 class="card-title">${feedback.lastName}</h5>
+                            <p class="card-text">${feedback.email}</p>
+                            <p class="card-text">${feedback.message}</p>
+                        </div>
+                    </div>
+                </div>
+            `;
             }
-
-            // Call the function to create cards for both carousel items
-            createFeedbackCards('feedback-cards-top', feedbacks); // Display top 3 feedbacks
-            createFeedbackCards('feedback-cards-bottom', feedbacks.slice(3)); // Display next 3 feedbacks
+           
         });
+    }
+
+    // Call the function to create cards for both carousel items
+    createFeedbackCards('feedback-cards-top', feedbacks); // Display top 3 feedbacks
+
+    createFeedbackCards('feedback-cards-bottom', feedbacks.slice(3, 6)); // Display next 3 feedbacks
+
+
+});
 
         // Check for dark mode preference on page load
         window.onload = function() {
@@ -304,6 +305,10 @@
                 localStorage.removeItem('darkMode');
             }
         }
+
+
+
+       
     </script>
 </body>
 </html>
