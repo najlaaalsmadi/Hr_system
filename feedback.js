@@ -72,3 +72,6 @@ window.onload = function() {
         document.body.classList.add('dark-mode');
     }
 };
+document.getElementById("img1-feedback").src="img/feedback1.png";
+document.getElementById("img2-feedback").src="img/feedback2.png";
+document.getElementById("img3-feedback").src="img/feedback3.png";
